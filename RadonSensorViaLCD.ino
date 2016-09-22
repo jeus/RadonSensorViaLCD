@@ -193,27 +193,28 @@ void loop()
  Serial.print(",\"pres\": ");
  Serial.print(pres);
  Serial.println("}]}");
- String radStr = "Radon";
-
+ 
+ 
+ String radStr = "Radon:";
  radStr += radon;
  char charBuf[13];
  radStr.toCharArray(charBuf,13);
  LcdString(charBuf);
 
  gotoXY(0,1);
- String tempStr = "Temp:";
+ String tempStr = "Tempe:";
  tempStr += temp;
  tempStr.toCharArray(charBuf,13);
  LcdString(charBuf);
  
  gotoXY(0,2);
- String humStr = "Humidity:";
+ String humStr = "Humid:";
  humStr += humid;
  humStr.toCharArray(charBuf,13);
  LcdString(charBuf);
 
  gotoXY(0,3);
- String pressStr = "pressure:";
+ String pressStr = "press:";
  pressStr += pres;
  pressStr.toCharArray(charBuf,13);
  LcdString(charBuf);
