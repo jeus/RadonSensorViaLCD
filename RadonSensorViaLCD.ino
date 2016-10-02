@@ -171,6 +171,8 @@ void setup(void)
   Serial.begin(9600);
   LcdInitialise();
   LcdClear();
+  pinMode(4, OUTPUT); 
+   digitalWrite(4, LOW); 
   LcdString("Hello jeus IM HERE");
   delay(3000);
 }
@@ -179,17 +181,22 @@ void loop()
 {
    // send the value of analog input 0:
  int analog = analogRead(A0);
+ int randomFloat = random(0,9);
  int humid = random(0,100); 
+ float humidA = (float) 1/randomFloat;
+ humidA = humidA+humid;
  int temp = random(0,100);
+ float tempA =(float) 1/randomFloat;
+ tempA =tempA + temp ;
  long radon = random(0,200000);
  int pres = random(0,100);
  
  Serial.print("{\"Radon\":[{\"radon\": ");
  Serial.print(radon);
  Serial.print(",\"temp\": ");
- Serial.print(temp); 
+ Serial.print(tempA); 
  Serial.print(",\"hum\": ");
- Serial.print(humid);
+ Serial.print(humidA);
  Serial.print(",\"pres\": ");
  Serial.print(pres);
  Serial.println("}]}");
