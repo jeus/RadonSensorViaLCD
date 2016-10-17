@@ -166,19 +166,51 @@ void gotoXY(int x, int y)
   LcdWrite( 0, 0x40 | y);  // Row.  
 
 }
+
+const int buttonPin = 6;     // the number of the pushbutton pin
+const int ledPin =  13; 
+int buttonState = 0;
 void setup(void)
 {
-  Serial.begin(9600);
+  Serial.begin(2400);
   LcdInitialise();
   LcdClear();
   pinMode(4, OUTPUT); 
    digitalWrite(4, LOW); 
   LcdString("Hello jeus IM HERE");
+  pinMode(ledPin, OUTPUT);      
+  // initialize the pushbutton pin as an input:
+  pinMode(buttonPin, INPUT);  
   delay(3000);
 }
 
+void keySendControll(int keyPin)
+{
+  // read the state of the pushbutton value:
+  buttonState = digitalRead(keyPin);
+
+  // check if the pushbutton is pressed.
+  // if it is, the buttonState is HIGH:
+  if (buttonState == HIGH) {     
+    // turn LED on:    
+    digitalWrite(ledPin, HIGH);  
+  
+  } 
+  else {
+    // turn LED off:
+    digitalWrite(ledPin, LOW); 
+      Serial.println("2-BrowserCH"); 
+  }
+}
+
+
+
+
 void loop()
 {
+  
+ keySendControll(buttonPin);
+  
    // send the value of analog input 0:
  int analog = analogRead(A0);
  int randomFloat = random(0,9);
@@ -189,10 +221,13 @@ void loop()
  float tempA =(float) 1/randomFloat;
  tempA =tempA + temp ;
  long radon = random(0,200000);
+ long toler = random(0,1000);
  int pres = random(0,100);
  
  Serial.print("{\"Radon\":[{\"radon\": ");
  Serial.print(radon);
+ Serial.print(",\"toler\": ");
+ Serial.print(toler); 
  Serial.print(",\"temp\": ");
  Serial.print(tempA); 
  Serial.print(",\"hum\": ");
